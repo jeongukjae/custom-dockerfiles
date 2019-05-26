@@ -14,6 +14,7 @@ jobs:
               sed 's|\/|-|g' | \
               sed 's|^|jeongukjae\/|g' | \
               sed 's|\.Dockerfile||'`
+            echo "build $image_name_and_tag"
             docker build --quiet -t $image_name_and_tag -f $dockerfile `dirname $dockerfile`
             docker push $image_name_and_tag
           done
