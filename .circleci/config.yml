@@ -8,7 +8,7 @@ jobs:
       - setup_remote_docker
       - run: echo "$DOCKERHUB_PASS" | docker login -u "jeongukjae" --password-stdin
       - run: |
-          for dockerfile in `find . -name "*Dockerfile"` ; do
+          for dockerfile in `find . -name "*Dockerfile" | sort` ; do
             image_name_and_tag=`echo $dockerfile | sed 's|\/images\/|:|g' | \
               sed 's|\.\/||g' | \
               sed 's|\/|-|g' | \
