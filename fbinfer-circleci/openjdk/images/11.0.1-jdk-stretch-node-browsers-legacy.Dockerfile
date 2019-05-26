@@ -1,6 +1,6 @@
 ## TEMPLATE DOCKERFILE
 FROM circleci/openjdk:11.0.1-jdk-stretch-node-browsers-legacy
-LABEL maintainer="Ukjae Jeong <ukjae@scatterlab.co.kr>"
+LABEL maintainer="Ukjae Jeong <jeongukjae@gmail.com>"
 
 # END OF TEMPLATE DOCKERFILE
 RUN curl -sSL "https://github.com/facebook/infer/releases/download/v0.16.0/infer-linux64-v0.16.0.tar.xz" | sudo tar -C /opt -xJ && \
