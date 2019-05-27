@@ -9,7 +9,7 @@ jobs:
       - setup_remote_docker
       - run: echo "$DOCKERHUB_PASS" | docker login -u "jeongukjae" --password-stdin
       - run: |
-          DOCKER_FILES_TO_BUILD=$(circleci tests glob "**/*.Dockerfile" | circleci tests split)
+          DOCKER_FILES_TO_BUILD=$(circleci tests glob "**/Dockerfile" | circleci tests split)
           for dockerfile in $DOCKER_FILES_TO_BUILD ; do
             image_name_and_tag=`echo $dockerfile | sed 's|\/images\/|:|g' | \
               sed 's|\.\/||g' | \
@@ -17,8 +17,7 @@ jobs:
               sed 's|^|jeongukjae\/|g' | \
               sed 's|\.Dockerfile||'`
             echo "build $image_name_and_tag"
-            docker build --quiet -t $image_name_and_tag -f $dockerfile `dirname $dockerfile`
+            docker build --no-cache --quiet -t $image_name_and_tag -f $dockerfile `dirname $dockerfile`
             docker push $image_name_and_tag
             docker rmi $image_name_and_tag
           done
-
