@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/python
+    parallelism: 4
     steps:
       - checkout
       - setup_remote_docker
@@ -18,5 +19,6 @@ jobs:
             echo "build $image_name_and_tag"
             docker build --quiet -t $image_name_and_tag -f $dockerfile `dirname $dockerfile`
             docker push $image_name_and_tag
+            docker rmi $image_name_and_tag
           done
 
