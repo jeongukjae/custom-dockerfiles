@@ -8,7 +8,8 @@ jobs:
       - setup_remote_docker
       - run: echo "$DOCKERHUB_PASS" | docker login -u "jeongukjae" --password-stdin
       - run: |
-          for dockerfile in `find . -name "*Dockerfile" | sort` ; do
+          DOCKER_FILES_TO_BUILD=$(circleci tests glob "**/*.Dockerfile" | circleci tests split)
+          for dockerfile in $DOCKER_FILES_TO_BUILD ; do
             image_name_and_tag=`echo $dockerfile | sed 's|\/images\/|:|g' | \
               sed 's|\.\/||g' | \
               sed 's|\/|-|g' | \
